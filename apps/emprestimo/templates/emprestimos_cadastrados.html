@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% include 'alerts/alerts.html' %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Valor Inicial</th>
+                        <th>Taxa (%)</th>
+                        <th>Qtd. Parcela</th>
+                        <th>Valor Parcela</th>
+                        <th>Vencimento</th>
+                        <th>Valor Final</th>
+                    </tr>
+                    </thead>
+                    {% for i in emprestimos %}
+                    <tbody>
+                    <tr>
+                        <td>{{ i.cliente.first_name }}</td>
+                        <td>R$: {{ i.valor }},00</td>
+                        <td>{{ i.get_juros_display }}%</td>
+                        <td>{{ i.get_parcela_display }}</td>
+                        <td>valor parcela</td>
+                        <td>{{ i.get_vencimento_display }}</td>
+                        <td>valor final</td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

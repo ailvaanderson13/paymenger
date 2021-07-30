@@ -1,0 +1,32 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% include 'alerts/alerts.html' %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>RG</th>
+                        <th>CPF</th>
+                    </tr>
+                    </thead>
+                    {% for i in clientes %}
+                    <tbody>
+                    <tr>
+                        <td>{{ i.first_name }} {{ i.last_name }}</td>
+                        <td>{{ i.email }}</td>
+                        <td>{{ i.rg }}</td>
+                        <td>{{ i.cpf }}</td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

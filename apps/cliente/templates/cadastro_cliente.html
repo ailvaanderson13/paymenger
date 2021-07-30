@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% if notification and msg %}
+<div class="row">
+    <div class="col">
+        <div class="alert alert-{{notification}}"><i class="fas fa-bell"></i>
+            {{msg}}
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="white-box">
+            <form class="form-horizontal form-material" method="POST">
+                {% csrf_token %}
+                {% for i in form %}
+                <div class="form-group">
+                    <label class="col-md-12">{{ i.label }}</label>
+                    <div class="col-md-12">
+                        {{ i }}
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="col">
+                    <button type="submit" class="btn btn-success text-white">{% if pk %}SALVAR ALTERAÇÕES{% else %}CADASTRAR{% endif %} <i class="fas fa-check-square"></i></button>
+                </div>
+            </form>
+        </div>
+<!--        {% if not pk %}-->
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <div class="white-box">-->
+<!--                        <div class="col-md-4 col-sm-4 text-left">-->
+<!--                            <h3>Clientes ativos:</h3>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <div class="white-box">-->
+<!--                        <div class="col-md-4 col-sm-4 text-left">-->
+<!--                            <h3>Status:</h3>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        {% endif  %}-->
+    </div>
+</div>
+{% endblock %}

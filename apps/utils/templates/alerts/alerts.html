@@ -1,0 +1,9 @@
+{% if notification and msg %}
+<div class="row">
+    <div class="col">
+        <div class="alert alert-{{notification}}"><i class="fas fa-bell"></i>
+            {{msg}}
+        </div>
+    </div>
+</div>
+{% endif %}
