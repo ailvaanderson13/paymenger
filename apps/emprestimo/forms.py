@@ -6,16 +6,18 @@ from .models import Emprestimo
 
 class EmprestimoForm(forms.ModelForm):
     cliente = forms.ModelChoiceField(
+        required=False,
         label="Selecione o cliente",
         queryset=Cliente.objects.filter(is_active=True),
         widget=forms.Select(
             attrs={
-                'class': 'form-control'
+                'class': 'form-control req'
             }
         )
     )
 
     valor = forms.CharField(
+        required=False,
         label="Valor *",
         widget=forms.TextInput(
             attrs={
@@ -25,6 +27,7 @@ class EmprestimoForm(forms.ModelForm):
     )
 
     juros = forms.ChoiceField(
+        required=False,
         label="Selecione a Taxa de Juros (%) *",
         choices=JUROS_CHOICES,
         widget=forms.Select(
@@ -35,6 +38,7 @@ class EmprestimoForm(forms.ModelForm):
     )
 
     parcela = forms.ChoiceField(
+        required=False,
         label="Selecione Qtd. de parcelas *",
         choices=PARCELAS_CHOICES,
         widget=forms.Select(
@@ -45,11 +49,12 @@ class EmprestimoForm(forms.ModelForm):
     )
 
     vencimento = forms.ChoiceField(
+        required=False,
         label="Selecione o dia para vencimento da parcela",
         choices=DIA_PAGAMENTO_CHOICES,
         widget=forms.Select(
             attrs={
-                'class': 'form-control'
+                'class': 'form-control req'
             }
         )
     )

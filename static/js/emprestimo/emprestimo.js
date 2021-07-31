@@ -19,7 +19,7 @@ function validate_required (){
     if (ok){
         get_send_data()
     }
-}
+};
 
 function get_send_data(){
 var valor = $('#id_valor').val();
@@ -41,8 +41,7 @@ var parcela = $('#id_parcela').val();
                     if (data.parcela || data.valor_total || data.valor_juros){
                         Swal.fire({
                             title: 'Informações do Empréstimo!',
-                            confirmButtonColor: '#60B532',
-                            confirmButtonText: 'Fechar!',
+                            showConfirmButton: false,
                             html: `
                                 <div class="modal-body">
                                     <div class="row">
@@ -50,6 +49,15 @@ var parcela = $('#id_parcela').val();
                                             <h4><b>Valor da Parcela: </b>R$: ${data.parcela.toFixed(2)}</h4>
                                             <h4><b>Valor Total: </b>R$: ${data.valor_total.toFixed(2)}</h4>
                                             <h4><b>Lucro: </b>R$: ${data.valor_juros.toFixed(2)}</h4>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button id="btn-fechar" onclick="swal.closeModal()" class="btn btn-danger text-white">Fechar!</button>
+                                        </div>
+                                        <div class="col">
+                                            <button id="btn-contratar" onclick="contratar()" class="btn btn-success text-white">Contratar!</button>
                                         </div>
                                     </div>
                                 </div>
@@ -60,5 +68,41 @@ var parcela = $('#id_parcela').val();
             }
         })
     }
+};
+
+function contratar(){
+    Swal.fire({
+      title: 'Tem certeza que quer contratar?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let cliente = $('#id_cliente').val();
+            console.log(cliente)
+            $.ajax({
+                'url': '/emprestimo/new-emprestimo/',
+                'type': 'POST',
+                'dataType': 'json',
+                 'data' : {
+                        'ok': 'ok',
+                        'pk': cliente
+                 },
+                success: function (data){
+                    if (data.success){
+                        Swal.fire({
+                          position: 'center',
+                          icon: 'success',
+                          title: 'Empréstimo contratado!',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })
+                    }
+                }
+            })
+        }
+    })
 }
 

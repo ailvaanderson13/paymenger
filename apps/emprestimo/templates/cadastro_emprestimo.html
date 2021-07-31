@@ -17,40 +17,40 @@
                 <div class="form-group">
                     {% csrf_token %}
                     {% for i in form %}
-                        <label class="col-md-12">{{ i.label }}</label>
-                        <div class="col-md-12">
-                            {{ i }}
-                        </div>
+                    <label class="col-md-12">{{ i.label }}</label>
+                    <div class="col-md-12">
+                        {{ i }}
+                    </div>
                     <br>
                     {% endfor %}
                 </div>
             </form>
             <div class="col">
-<!--                <button type="submit" class="btn btn-success text-white" id="btn-cadastrar">{% if pk %}SALVAR ALTERAÇÕES{% else %}CALCULAR{% endif %} <i class="fas fa-check-square"></i></button>-->
+                <!--                <button type="submit" class="btn btn-success text-white" id="btn-cadastrar">{% if pk %}SALVAR ALTERAÇÕES{% else %}CALCULAR{% endif %} <i class="fas fa-check-square"></i></button>-->
                 <a class="btn btn-success text-white" id="btn-calcular">CALCULAR <i class="fas fa-check-square"></i></a>
             </div>
         </div>
-<!--        {% if not pk %}-->
-<!--            <div class="row">-->
-<!--                <div class="col">-->
-<!--                    <div class="white-box">-->
-<!--                        <div class="col-md-4 col-sm-4 text-left">-->
-<!--                            <h3>Clientes ativos:</h3>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col">-->
-<!--                    <div class="white-box">-->
-<!--                        <div class="col-md-4 col-sm-4 text-left">-->
-<!--                            <h3>Status:</h3>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        {% endif  %}-->
+        <!--        {% if not pk %}-->
+        <!--            <div class="row">-->
+        <!--                <div class="col">-->
+        <!--                    <div class="white-box">-->
+        <!--                        <div class="col-md-4 col-sm-4 text-left">-->
+        <!--                            <h3>Clientes ativos:</h3>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div class="col">-->
+        <!--                    <div class="white-box">-->
+        <!--                        <div class="col-md-4 col-sm-4 text-left">-->
+        <!--                            <h3>Status:</h3>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        {% endif  %}-->
     </div>
 </div>
 {% endblock %}
 {% block script %}
-    <script src="{% static 'js/emprestimo/emprestimo.js' %}"></script>
+<script src="{% static 'js/emprestimo/emprestimo.js' %}"></script>
 {% endblock %}
