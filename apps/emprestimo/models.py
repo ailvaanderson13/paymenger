@@ -6,7 +6,7 @@ from apps.firma.models import Firma
 
 class Emprestimo(models.Model):
     firma = models.ForeignKey(to=Firma, on_delete=models.DO_NOTHING, blank=True, null=True)
-    cliente = models.ForeignKey(to=Cliente, on_delete=models.DO_NOTHING, blank=True, null=True)
+    cliente = models.ForeignKey(to=Cliente, on_delete=models.DO_NOTHING)
     valor = models.CharField(max_length=6)
     juros = models.CharField(choices=choices.JUROS_CHOICES, max_length=3, default="1")
     parcela = models.CharField(choices=choices.PARCELAS_CHOICES, max_length=3, default="1")
@@ -15,7 +15,7 @@ class Emprestimo(models.Model):
     data = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.valor if self.valor else 'Nenhum'
+        return self.cliente.first_name
 
     class Meta:
         verbose_name = "Empréstimo"

@@ -80,15 +80,16 @@ function contratar(){
       confirmButtonText: 'Sim'
     }).then((result) => {
         if (result.isConfirmed) {
-            let cliente = $('#id_cliente').val();
-            console.log(cliente)
+            let client = $('#id_cliente').val();
+            var csrf = $('input[name=csrfmiddlewaretoken]').val();
             $.ajax({
                 'url': '/emprestimo/new-emprestimo/',
                 'type': 'POST',
                 'dataType': 'json',
                  'data' : {
-                        'ok': 'ok',
-                        'pk': cliente
+                        'ok': true,
+                        'cliente': client
+                        csrfmiddlewaretoken: csrf,
                  },
                 success: function (data){
                     if (data.success){
@@ -96,6 +97,14 @@ function contratar(){
                           position: 'center',
                           icon: 'success',
                           title: 'Empréstimo contratado!',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })
+                    } else {
+                         Swal.fire({
+                          position: 'center',
+                          icon: 'error',
+                          title: 'Algo de errado!',
                           showConfirmButton: false,
                           timer: 1500
                         })

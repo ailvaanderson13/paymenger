@@ -4,7 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 from . import models, forms
 
 
-@csrf_exempt
 def create_update_emprestimo(request, pk=None):
     firma = request.user.firma.pk
     page_title = "Abertura de Empréstimo" if not pk else "Editar Empréstimo"
@@ -24,6 +23,7 @@ def create_update_emprestimo(request, pk=None):
 
     if request.method == "POST":
         ok = request.POST.get('ok')
+        cliente = request.POST.get('cliente')
 
         if emprestimo:
             form = forms.EmprestimoForm(request.POST, instance=emprestimo)
@@ -36,12 +36,16 @@ def create_update_emprestimo(request, pk=None):
                     form.save()
                     msg = "Atualização Salva com Sucesso!"
                     notification = "success"
-
                 if ok:
+                    form.cliente = cliente
                     form.firma_id = firma
                     form.save()
-                    response = {'success': True}
-                    return JsonResponse(response, safe=False)
+                    form = forms.EmprestimoForm()
+
+                    response = {
+                        'success': True
+                    }
+                    return JsonResponse(response, safe=True)
         except Exception as e:
             msg = e
             notification = "warning"
@@ -98,7 +102,6 @@ def calc_emprestimo(request):
             valor_total = parcela * meses
             valor_juros = valor_total - valor_inicial
 
-
             response = {
                 'success': True,
                 'parcela': parcela,
@@ -107,16 +110,3 @@ def calc_emprestimo(request):
             }
 
     return JsonResponse(response, safe=False)
-
-
-
-
-
-
-
-
-
-
-
-
-

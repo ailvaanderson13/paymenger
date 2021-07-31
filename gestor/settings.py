@@ -26,12 +26,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.emprestimo',
     'apps.agiota',
     'apps.cliente',
-    'apps.emprestimo',
     'apps.utils',
     'apps.firma',
-
 ]
 
 AUTH_USER_MODEL = "agiota.Agiota"

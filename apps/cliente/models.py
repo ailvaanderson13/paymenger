@@ -15,7 +15,7 @@ class Cliente(Agiota):
     num_ref = models.CharField(max_length=5)
 
     def __str__(self):
-        return self.first_name if self.first_name else 'Nenhum'
+        return self.first_name
 
     class Meta:
         verbose_name = 'Cliente'
