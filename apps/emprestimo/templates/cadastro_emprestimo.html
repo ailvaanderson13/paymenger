@@ -24,11 +24,14 @@
                     <br>
                     {% endfor %}
                 </div>
+                <div class="col">
+                    {% if emprestimo %}
+                        <button type="submit" class="btn btn-success text-white">EDITAR EMPRÉSTIMO<i class="fas fa-check-square"></i></button>
+                    {% else %}
+                        <a class="btn btn-success text-white" id="btn-calcular">CALCULAR<i class="fas fa-check-square"></i></a>
+                    {% endif %}
+                </div>
             </form>
-            <div class="col">
-<!--                <button type="submit" class="btn btn-success text-white" id="btn-cadastrar">{% if pk %}SALVAR ALTERAÇÕES{% else %}CALCULAR{% endif %} <i class="fas fa-check-square"></i></button>-->
-                    <a class="btn btn-success text-white" id="btn-calcular">CALCULAR <i class="fas fa-check-square"></i></a>
-            </div>
         </div>
         <!--        {% if not pk %}-->
         <!--            <div class="row">-->

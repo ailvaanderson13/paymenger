@@ -6,7 +6,7 @@ from apps.firma.models import Firma
 
 class Emprestimo(models.Model):
     firma = models.ForeignKey(to=Firma, on_delete=models.DO_NOTHING, blank=True, null=True)
-    cliente = models.ForeignKey(to=Cliente, on_delete=models.DO_NOTHING)
+    cliente = models.ForeignKey(to=Cliente, on_delete=models.DO_NOTHING, blank=True, null=True)
     valor = models.CharField(max_length=6)
     juros = models.CharField(choices=choices.JUROS_CHOICES, max_length=3, default="1")
     parcela = models.CharField(choices=choices.PARCELAS_CHOICES, max_length=3, default="1")

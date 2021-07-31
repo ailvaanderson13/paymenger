@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% block content %}
+{% load static %}
 {% include 'alerts/alerts.html' %}
 <div class="row">
     <div class="col-sm-12">
@@ -8,6 +9,7 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th>Ações</th>
                         <th>Nome</th>
                         <th>E-mail</th>
                         <th>RG</th>
@@ -17,6 +19,12 @@
                     {% for i in clientes %}
                     <tbody>
                     <tr>
+                        <td>
+                            <div class="btn-group-sm btn-group" data-toggle="buttons">
+                                <a class="btn btn-success" href="{% url 'cliente:edit-cliente' i.pk %}" name="options"><i class="fas fa-pencil-alt text-white"></i></a>
+                                <button class="btn btn-danger btn-trash" value="{{ i.pk }}"><i class="fas fa-trash text-white"></i></button>
+                            </div>
+                        </td>
                         <td>{{ i.first_name }} {{ i.last_name }}</td>
                         <td>{{ i.email }}</td>
                         <td>{{ i.rg }}</td>
@@ -29,4 +37,7 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/cliente/cliente.js' %}"></script>
 {% endblock %}

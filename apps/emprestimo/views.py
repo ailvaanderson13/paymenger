@@ -4,8 +4,33 @@ from django.views.decorators.csrf import csrf_exempt
 from . import models, forms
 
 
-def create_update_emprestimo(request, pk=None):
-    firma = request.user.firma.pk
+def confirm_emprestimo(request):
+    response = {
+        'success': False
+    }
+
+    if request.method == "POST":
+        firma = request.user.firma
+        cliente = request.POST.get('cliente')
+        valor = request.POST.get('valor')
+        juros = request.POST.get('juros')
+        parcela = request.POST.get('parcela')
+        vencimento = request.POST.get('vencimento')
+
+        if cliente and valor and juros and parcela and vencimento:
+            new_emprestimo = models.Emprestimo.objects.create(valor=valor, juros=juros,
+                                                              parcela=parcela, vencimento=vencimento,
+                                                              firma=firma if firma else None)
+            new_emprestimo.cliente_id = int(cliente)
+            new_emprestimo.save()
+            response = {
+                'success': True
+            }
+
+    return JsonResponse(response, safe=True)
+
+
+def open_update_emprestimo(request, pk=None):
     page_title = "Abertura de Empréstimo" if not pk else "Editar Empréstimo"
     msg = None
     notification = None
@@ -13,22 +38,18 @@ def create_update_emprestimo(request, pk=None):
     emprestimo = None
 
     if pk:
-        emprestimo = models.Emprestimo.objects.filter(is_active=True)
+        emprestimo = models.Emprestimo.objects.filter(pk=pk, is_active=True)
         if emprestimo:
             emprestimo = emprestimo.last()
             form = forms.EmprestimoForm(instance=emprestimo)
         else:
-            msg="Nenhum Empréstimo encontrado!"
+            msg = "Nenhum Empréstimo encontrado!"
             notification = "danger"
 
     if request.method == "POST":
-        ok = request.POST.get('ok')
-        cliente = request.POST.get('cliente')
 
         if emprestimo:
             form = forms.EmprestimoForm(request.POST, instance=emprestimo)
-        else:
-            form = forms.EmprestimoForm(request.POST)
 
         try:
             if form.is_valid():
@@ -36,22 +57,13 @@ def create_update_emprestimo(request, pk=None):
                     form.save()
                     msg = "Atualização Salva com Sucesso!"
                     notification = "success"
-                if ok:
-                    form.cliente = cliente
-                    form.firma_id = firma
-                    form.save()
                     form = forms.EmprestimoForm()
-
-                    response = {
-                        'success': True
-                    }
-                    return JsonResponse(response, safe=True)
         except Exception as e:
             msg = e
             notification = "warning"
 
     context = {
-       'page_title': page_title, 'msg': msg, 'notification': notification, 'form': form
+       'page_title': page_title, 'msg': msg, 'notification': notification, 'form': form, 'emprestimo': emprestimo
     }
 
     return render(request, 'cadastro_emprestimo.html', context)
@@ -62,7 +74,7 @@ def list_emprestimos(request):
     msg = None
     notification = None
 
-    emprestimos = models.Emprestimo.objects.filter(is_active=True, firma=request.user.firma)
+    emprestimos = models.Emprestimo.objects.filter(is_active=True).order_by('data')
 
     if not emprestimos:
         msg = "Nenhum Empréstimo em Aberto"

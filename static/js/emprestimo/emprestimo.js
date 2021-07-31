@@ -81,24 +81,35 @@ function contratar(){
     }).then((result) => {
         if (result.isConfirmed) {
             let client = $('#id_cliente').val();
+            let valor = $('#id_valor').val();
+            let juros = $('#id_juros').val();
+            let parcela = $('#id_parcela').val();
+            let vencimento = $('#id_vencimento').val();
             var csrf = $('input[name=csrfmiddlewaretoken]').val();
             $.ajax({
                 'url': '/emprestimo/new-emprestimo/',
                 'type': 'POST',
                 'dataType': 'json',
                  'data' : {
-                        'ok': true,
-                        'cliente': client
+                        'cliente': client,
+                        'valor': valor,
+                        'juros': juros,
+                        'parcela': parcela,
+                        'vencimento': vencimento,
                         csrfmiddlewaretoken: csrf,
                  },
                 success: function (data){
                     if (data.success){
                         Swal.fire({
-                          position: 'center',
-                          icon: 'success',
-                          title: 'Empréstimo contratado!',
-                          showConfirmButton: false,
-                          timer: 1500
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Empréstimo contratado!',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
                         })
                     } else {
                          Swal.fire({
@@ -114,4 +125,3 @@ function contratar(){
         }
     })
 }
-
