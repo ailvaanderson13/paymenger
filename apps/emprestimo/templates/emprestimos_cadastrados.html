@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% block content %}
+{% load static %}
 {% include 'alerts/alerts.html' %}
 <div class="row">
     <div class="col-sm-12">
@@ -8,25 +9,24 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th>Ações</th>
                         <th>Cliente</th>
                         <th>Valor Inicial</th>
                         <th>Taxa (%)</th>
-                        <th>Qtd. Parcela</th>
-                        <th>Valor Parcela</th>
-                        <th>Vencimento</th>
-                        <th>Valor Final</th>
                     </tr>
                     </thead>
                     {% for i in emprestimos %}
                     <tbody>
                     <tr>
+                        <td>
+                            <div class="btn-group-sm btn-group" data-toggle="buttons">
+                                <a class="btn btn-success" href="{% url 'emprestimo:edit-emprestimo' i.pk %}"><i class="fas fa-pencil-alt text-white"></i></a>
+                                <button class="btn btn-primary btn-detail" value="{{ i.pk }}"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </td>
                         <td>{{ i.cliente.first_name }}</td>
                         <td>R$: {{ i.valor }},00</td>
                         <td>{{ i.get_juros_display }}%</td>
-                        <td>{{ i.get_parcela_display }}</td>
-                        <td>valor parcela</td>
-                        <td>{{ i.get_vencimento_display }}</td>
-                        <td>valor final</td>
                     </tr>
                     </tbody>
                     {% endfor %}
@@ -35,4 +35,7 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'js/emprestimo/emprestimo.js' %}"></script>
 {% endblock %}

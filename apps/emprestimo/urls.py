@@ -7,4 +7,5 @@ urlpatterns = [
     path('open-emprestimo/', views.open_update_emprestimo, name="open-emprestimo"),
     path('list-emprestimos/', views.list_emprestimos, name="list-emprestimo"),
     path('calc-emprestimo/', views.calc_emprestimo, name="calc-emprestimo"),
+    path('detail-emprestimo/', views.detail_emprestimo, name="detail-emprestimo"),
 ]

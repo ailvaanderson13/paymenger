@@ -46,9 +46,10 @@ var parcela = $('#id_parcela').val();
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col text-left">
-                                            <h4><b>Valor da Parcela: </b>R$: ${data.parcela.toFixed(2)}</h4>
-                                            <h4><b>Valor Total: </b>R$: ${data.valor_total.toFixed(2)}</h4>
-                                            <h4><b>Lucro: </b>R$: ${data.valor_juros.toFixed(2)}</h4>
+                                            <h4><b>Qtd. Parcelas: </b>R$: ${parcela}x</h4>
+                                            <h4><b>Valor da Parcela: </b>R$: ${data.parcela.toFixed(2).replace('.', ',')}</h4>
+                                            <h4><b>Valor Total: </b>R$: ${data.valor_total.toFixed(2).replace('.', ',')}</h4>
+                                            <h4><b>Lucro: </b>R$: ${data.valor_juros.toFixed(2).replace('.', ',')}</h4>
                                         </div>
                                     </div>
                                     <br>
@@ -110,7 +111,7 @@ function contratar(){
                             if (result.value) {
                                 location.reload();
                             }
-                        })
+                        });
                     } else {
                          Swal.fire({
                           position: 'center',
@@ -125,3 +126,40 @@ function contratar(){
         }
     })
 }
+
+$('.btn-detail').on('click', function(){
+    let pk = $(this).val();
+    if (pk){
+        $.ajax({
+            'url': '/emprestimo/detail-emprestimo/',
+            'type': 'POST',
+            'dataType': 'json',
+            'data' : {
+                'pk': pk,
+            },
+            success: function(data){
+                if (data.success){
+                    Swal.fire({
+                        title: 'Detalhes do Empréstimo!',
+                        showConfirmButton: false,
+                        html: `
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col text-left">
+                                        <h4><b>Cliente: </b>${data.cliente}</h4>
+                                        <h4><b>Qtd. Parcelas: </b>4</h4>
+                                        <h4><b>Valor da Parcela: </b>R$: ${data.valor_parcela.toFixed().replace('.', ',')}</h4>
+                                        <h4><b>Taxa de juros: </b>${data.taxa_juros}%</h4>
+                                        <h4><b>Valor Total: </b>R$: ${data.valor_total.toFixed(2).replace('.', ',')}</h4>
+                                        <h4><b>Lucro: </b>R$: ${data.valor_juros.toFixed(2).replace('.', ',')}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    })
+                }
+            }
+        })
+    }
+})
+

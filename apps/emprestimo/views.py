@@ -122,3 +122,50 @@ def calc_emprestimo(request):
             }
 
     return JsonResponse(response, safe=False)
+
+
+@csrf_exempt
+def detail_emprestimo(request):
+    response = {
+        'success': False
+    }
+
+    if request.method == "POST":
+
+        pk = request.POST.get('pk')
+        if pk:
+
+            emprestimo = models.Emprestimo.objects.get(pk=pk)
+
+            if emprestimo:
+
+                taxa_juros = emprestimo.juros
+                meses = emprestimo.parcela
+                valor_inicial = emprestimo.valor
+                cliente = emprestimo.cliente.first_name
+
+                if meses and taxa_juros and valor_inicial:
+                    meses = int(meses)
+                    taxa_juros = int(taxa_juros)
+                    valor_inicial = int(valor_inicial)
+
+                    juros = int(taxa_juros) / 100
+
+                    x = ((1+juros)**meses)-1
+                    y = (juros*((1+juros)**meses))
+
+                    percentual = x/y
+                    parcela = valor_inicial / percentual
+                    valor_total = parcela * meses
+                    valor_juros = valor_total - valor_inicial
+
+                    response = {
+                        'success': True,
+                        'valor_parcela': parcela,
+                        'cliente': cliente,
+                        'valor_total': valor_total,
+                        'valor_juros': valor_juros,
+                        'taxa_juros': taxa_juros,
+                    }
+
+    return JsonResponse(response, safe=False)
