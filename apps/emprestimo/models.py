@@ -11,8 +11,12 @@ class Emprestimo(models.Model):
     juros = models.CharField(choices=choices.JUROS_CHOICES, max_length=3, default="1")
     parcela = models.CharField(choices=choices.PARCELAS_CHOICES, max_length=3, default="1")
     vencimento = models.CharField(choices=choices.DIA_PAGAMENTO_CHOICES, max_length=3, default="1")
+    num_parcela = models.CharField(max_length=10, blank=True,null=True)
+    pagou_parcela = models.BooleanField(default=False)
+    quitou = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     data = models.DateTimeField(auto_now_add=True)
+    data_quitacao = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.cliente.first_name
