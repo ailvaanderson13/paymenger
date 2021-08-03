@@ -5,7 +5,6 @@ from apps.utils.views import login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', login, name="login"),
     path('', include(('apps.utils.urls', 'utils'), namespace='utils')),
     path('agiota/', include(('apps.agiota.urls', 'agiota'), namespace='agiota')),
     path('cliente/', include(('apps.cliente.urls', 'cliente'), namespace='cliente')),
