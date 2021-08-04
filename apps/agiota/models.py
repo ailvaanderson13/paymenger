@@ -5,6 +5,7 @@ from apps.firma.models import Firma
 
 class Agiota(AbstractUser):
     firma = models.ForeignKey(to=Firma, on_delete=models.DO_NOTHING, null=True, blank=True)
+    pagou = models.BooleanField(default=True)
     celular = models.CharField(max_length=15)
     data = models.DateTimeField(auto_now_add=True)
 

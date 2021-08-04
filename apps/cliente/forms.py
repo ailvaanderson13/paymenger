@@ -117,7 +117,7 @@ class ClienteForm(forms.ModelForm):
         model = Cliente
         fields = [
             'agiota', 'first_name', 'last_name', 'email', 'rg', 'cpf', 'celular_cliente', 'cep', 'nome_ref', 'rua_ref',
-            'num_ref'
+            'num_ref', 'celular_ref'
         ]
 
 
@@ -225,5 +225,5 @@ class ClienteAgiotaForm(forms.ModelForm):
         model = Cliente
         fields = [
             'first_name', 'last_name', 'email', 'rg', 'cpf', 'celular_cliente', 'cep', 'nome_ref', 'rua_ref',
-            'num_ref'
+            'num_ref', 'celular_ref'
         ]

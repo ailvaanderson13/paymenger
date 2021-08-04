@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from . import forms, models
 
 
 def create_update_agiota(request, pk=None):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
+
     page_title = "Cadastro de Agiota" if not pk else "Editar Agiota"
     form = forms.AgiotaForm()
     agiota = None
@@ -51,6 +54,9 @@ def create_update_agiota(request, pk=None):
 
 
 def list_agiotas(request):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
+
     page_title = 'Agiotas Cadastrados'
     msg = None
 

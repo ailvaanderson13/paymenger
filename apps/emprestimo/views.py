@@ -1,11 +1,14 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from datetime import date, datetime
 from . import models, forms
 
 
 def confirm_emprestimo(request):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
+
     response = {
         'success': False
     }
@@ -32,6 +35,9 @@ def confirm_emprestimo(request):
 
 
 def open_update_emprestimo(request, pk=None):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
+
     page_title = "Abertura de Empréstimo" if not pk else "Editar Empréstimo"
     msg = None
     notification = None
@@ -71,11 +77,16 @@ def open_update_emprestimo(request, pk=None):
 
 
 def list_emprestimos(request):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
     page_title = "Empréstimos Cadastrados"
     msg = None
     notification = None
 
-    emprestimos = models.Emprestimo.objects.filter(is_active=True).order_by('data')
+    if request.user.is_superuser:
+        emprestimos = models.Emprestimo.objects.filter(is_active=True).order_by('data')
+    else:
+        emprestimos = models.Emprestimo.objects.filter(is_active=True, firma=request.user.firma).order_by('data')
 
     if not emprestimos:
         msg = "Nenhum Empréstimo em Aberto"
@@ -90,6 +101,8 @@ def list_emprestimos(request):
 
 @csrf_exempt
 def calc_emprestimo(request):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
     response = {
         'success': False
     }
@@ -125,6 +138,8 @@ def calc_emprestimo(request):
 
 @csrf_exempt
 def detail_emprestimo(request):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
     response = {
         'success': False
     }
@@ -174,17 +189,23 @@ def detail_emprestimo(request):
 
 
 def table_charge(request):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
     page_title = "Tabela de Cobrança"
     today = date.today()
     msg = None
     notification = None
 
-    emprestimos = models.Emprestimo.objects.filter(vencimento=today.day, pagou_parcela=False, quitou=False)
-
+    if request.user.is_superuser:
+        emprestimos = models.Emprestimo.objects.filter(is_active=True, vencimento=today.day, pagou_parcela=False,
+                                                       quitou=False)
+    else:
+        emprestimos = models.Emprestimo.objects.filter(is_active=True, vencimento=today.day, pagou_parcela=False,
+                                                       quitou=False,  firma=request.user.firma)
 
     if not emprestimos:
         msg = "Nenhum pagamento para receber hoje!"
-        notification = "success"
+        notification = "danger"
 
     context = {
         'page_title': page_title, 'emprestimos': emprestimos, 'msg': msg, 'notification': notification
@@ -195,6 +216,9 @@ def table_charge(request):
 
 @csrf_exempt
 def update_status_payment(request):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
+
     response = {'success': False}
 
     if request.method == 'POST':
@@ -219,11 +243,23 @@ def update_status_payment(request):
 
 
 def emprestimos_quitados(request):
-    page_title = "Empréstimos Quitados"
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
 
-    emprestimos = models.Emprestimo.objects.filter(is_active=True, quitou=True)
+    page_title = "Empréstimos Quitados"
+    notification = None
+    msg = None
+
+    if request.user.is_superuser:
+        emprestimos = models.Emprestimo.objects.filter(is_active=True, quitou=True)
+    else:
+        emprestimos = models.Emprestimo.objects.filter(is_active=True, quitou=True, firma=request.user.firma)
+
+    if not emprestimos:
+        msg = "Nenhum Empréstimo Quitado!"
+        notification = "danger"
 
     context = {
-        'page_title': page_title, 'emprestimos': emprestimos
+        'page_title': page_title, 'emprestimos': emprestimos, 'msg': msg, 'notification': notification
     }
     return render(request, 'emprestimos_quitados.html', context)

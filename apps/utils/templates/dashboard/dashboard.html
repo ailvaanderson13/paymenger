@@ -1,69 +1,74 @@
 {% extends 'base/base.html' %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-4 col-sm-6 col-xs-12">
-        <div class="white-box analytics-info">
-            <h3 class="box-title">Empréstimos em Aberto</h3>
-            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                <li>
-                    <div id="sparklinedash"><canvas width="67" height="30"
-                                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                    </div>
-                </li>
-                <li class="ml-auto"><span class="counter text-warning"><b>130</b></span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-lg-4 col-sm-6 col-xs-12">
-        <div class="white-box analytics-info">
-            <h3 class="box-title">Parcelas em Atraso</h3>
-            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                <li>
-                    <div id="sparklinedash2"><canvas width="67" height="30"
-                                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                    </div>
-                </li>
-                <li class="ml-auto"><span class="counter text-danger"><b>200</b></span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-lg-4 col-sm-6 col-xs-12">
-        <div class="white-box analytics-info">
-            <h3 class="box-title">Lucro nos últimos 30 dias.</h3>
-            <ul class="list-inline two-part d-flex align-items-center mb-0">
-                <li>
-                    <div id="sparklinedash3"><canvas width="67" height="30"
-                                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
-                    </div>
-                </li>
-                <li class="ml-auto"><span class="counter text-info"><b class="text-success">R$: 5.650,00</b></span>
-                </li>
-            </ul>
-        </div>
+<div class="col">
+    <div class="alert">
+        <div class="alert alert-warning"><i class="fas fa-bell"></i> <b>EM BREVE, INFORMAÇÕES!</b></div>
     </div>
 </div>
+<!--<div class="row justify-content-center">-->
+<!--    <div class="col-lg-4 col-sm-6 col-xs-12">-->
+<!--        <div class="white-box analytics-info">-->
+<!--            <h3 class="box-title">Empréstimos em Aberto</h3>-->
+<!--            <ul class="list-inline two-part d-flex align-items-center mb-0">-->
+<!--                <li>-->
+<!--                    <div id="sparklinedash"><canvas width="67" height="30"-->
+<!--                                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <li class="ml-auto"><span class="counter text-warning"><b>130</b></span></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col-lg-4 col-sm-6 col-xs-12">-->
+<!--        <div class="white-box analytics-info">-->
+<!--            <h3 class="box-title">Parcelas em Atraso</h3>-->
+<!--            <ul class="list-inline two-part d-flex align-items-center mb-0">-->
+<!--                <li>-->
+<!--                    <div id="sparklinedash2"><canvas width="67" height="30"-->
+<!--                                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <li class="ml-auto"><span class="counter text-danger"><b>200</b></span></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="col-lg-4 col-sm-6 col-xs-12">-->
+<!--        <div class="white-box analytics-info">-->
+<!--            <h3 class="box-title">Lucro nos últimos 30 dias.</h3>-->
+<!--            <ul class="list-inline two-part d-flex align-items-center mb-0">-->
+<!--                <li>-->
+<!--                    <div id="sparklinedash3"><canvas width="67" height="30"-->
+<!--                                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <li class="ml-auto"><span class="counter text-info"><b class="text-success">R$: 5.650,00</b></span>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <!-- ============================================================== -->
 <!-- PRODUCTS YEARLY SALES -->
 <!-- ============================================================== -->
-<div class="row">
-    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-        <div class="white-box">
-            <h3 class="box-title">Emprestimos realizados nos ultimos 3 meses.</h3>
-            <div class="d-md-flex">
-                <ul class="list-inline d-flex ml-auto">
-                    <li class="pl-3">
-                        <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Empréstimos</h5>
-                    </li>
-                </ul>
-            </div>
-            <div id="ct-visits" style="height: 405px;">
-                <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span
-                        class="chartist-tooltip-value">6</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div class="row">-->
+<!--    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">-->
+<!--        <div class="white-box">-->
+<!--            <h3 class="box-title">Emprestimos realizados nos ultimos 3 meses.</h3>-->
+<!--            <div class="d-md-flex">-->
+<!--                <ul class="list-inline d-flex ml-auto">-->
+<!--                    <li class="pl-3">-->
+<!--                        <h5><i class="fa fa-circle m-r-5 text-inverse"></i>Empréstimos</h5>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--            <div id="ct-visits" style="height: 405px;">-->
+<!--                <div class="chartist-tooltip" style="top: -17px; left: -12px;"><span-->
+<!--                        class="chartist-tooltip-value">6</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 <!--&lt;!&ndash; ============================================================== &ndash;&gt;-->
 <!--&lt;!&ndash; RECENT SALES &ndash;&gt;-->
 <!--&lt;!&ndash; ============================================================== &ndash;&gt;-->

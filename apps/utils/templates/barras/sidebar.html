@@ -9,7 +9,7 @@
                         <span class="hide-menu">Painel</span>
                     </a>
                 </li>
-                {% if not request.user.is_superuser %}
+                {% if request.user.is_superuser %}
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{% url 'agiota:new_agiota' %}"
                            aria-expanded="false">

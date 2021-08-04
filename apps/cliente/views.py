@@ -1,11 +1,14 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from . import models, forms
 
 
 def create_update_cliente(request, pk=None):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
+
     firma = request.user.firma.pk
     page_title = "Cadastrar Cliente" if not pk else "Editar Cliente"
     form = forms.ClienteForm() if not firma else forms.ClienteAgiotaForm()
@@ -58,11 +61,16 @@ def create_update_cliente(request, pk=None):
 
 
 def list_clientes(request):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
     page_title = "Clientes Cadastrados"
     msg = None
     notification = None
 
-    clientes = models.Cliente.objects.filter(is_active=True)
+    if request.user.is_superuser:
+        clientes = models.Cliente.objects.filter(is_active=True)
+    else:
+        clientes = models.Cliente.objects.filter(is_active=True, firma=request.user.firma)
 
     if not clientes:
         msg = "Nenhum cliente Cadastrado!"
@@ -77,6 +85,8 @@ def list_clientes(request):
 
 @csrf_exempt
 def delete_cliente(request):
+    if not request.user.is_authenticated:
+        return redirect('utils:acesso')
     response = {
         'success': False
     }
