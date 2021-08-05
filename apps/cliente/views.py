@@ -7,7 +7,7 @@ from . import models, forms
 
 def create_update_cliente(request, pk=None):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
 
     firma = request.user.firma.pk
     page_title = "Cadastrar Cliente" if not pk else "Editar Cliente"
@@ -62,7 +62,7 @@ def create_update_cliente(request, pk=None):
 
 def list_clientes(request):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
     page_title = "Clientes Cadastrados"
     msg = None
     notification = None
@@ -86,7 +86,7 @@ def list_clientes(request):
 @csrf_exempt
 def delete_cliente(request):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
     response = {
         'success': False
     }

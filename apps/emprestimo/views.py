@@ -7,7 +7,7 @@ from . import models, forms
 
 def confirm_emprestimo(request):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
 
     response = {
         'success': False
@@ -53,7 +53,7 @@ def confirm_emprestimo(request):
 
 def open_update_emprestimo(request, pk=None):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
 
     page_title = "Abertura de Empréstimo" if not pk else "Editar Empréstimo"
     msg = None
@@ -80,7 +80,8 @@ def open_update_emprestimo(request, pk=None):
 
 def list_emprestimos(request):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
+
     page_title = "Empréstimos Cadastrados"
     msg = None
     notification = None
@@ -104,7 +105,7 @@ def list_emprestimos(request):
 @csrf_exempt
 def calc_emprestimo(request):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
     response = {
         'success': False
     }
@@ -141,7 +142,7 @@ def calc_emprestimo(request):
 @csrf_exempt
 def detail_emprestimo(request):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
     response = {
         'success': False
     }
@@ -192,7 +193,7 @@ def detail_emprestimo(request):
 
 def table_charge(request):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
     page_title = "Tabela de Cobrança"
     today = date.today()
     msg = None
@@ -219,7 +220,7 @@ def table_charge(request):
 @csrf_exempt
 def update_status_payment(request):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
 
     response = {'success': False}
 
@@ -246,7 +247,7 @@ def update_status_payment(request):
 
 def emprestimos_quitados(request):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
 
     page_title = "Empréstimos Quitados"
     notification = None

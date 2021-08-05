@@ -4,7 +4,7 @@ from . import forms, models
 
 def create_update_agiota(request, pk=None):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
 
     page_title = "Cadastro de Agiota" if not pk else "Editar Agiota"
     form = forms.AgiotaForm()
@@ -55,7 +55,7 @@ def create_update_agiota(request, pk=None):
 
 def list_agiotas(request):
     if not request.user.is_authenticated:
-        return redirect('utils:acesso')
+        return redirect('utils:login')
 
     page_title = 'Agiotas Cadastrados'
     msg = None
