@@ -79,6 +79,7 @@ function contratar(){
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sim'
+      cancelButtonText: 'Não'
     }).then((result) => {
         if (result.isConfirmed) {
             let client = $('#id_cliente').val();
