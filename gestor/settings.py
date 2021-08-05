@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from prettyconf import Configuration
-from dj_database_url import parse as dburl
+import dj_database_url
 
 config = Configuration()
 
@@ -74,10 +74,8 @@ WSGI_APPLICATION = 'gestor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-DATABASES = {
-    'default': config('DATABASE_URL', default=default_dburl, cast=dburl)
-}
+DATABASES = {}
+DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'))
 
 
 # Password validation
