@@ -73,7 +73,7 @@ var parcela = $('#id_parcela').val();
 
 function contratar(){
     Swal.fire({
-      title: 'Tem certeza que quer contratar?',
+      title: 'Tem certeza?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -86,6 +86,7 @@ function contratar(){
             let juros = $('#id_juros').val();
             let parcela = $('#id_parcela').val();
             let vencimento = $('#id_vencimento').val();
+            var pk = $('.cls-pk').val();
             var csrf = $('input[name=csrfmiddlewaretoken]').val();
             $.ajax({
                 'url': '/emprestimo/new-emprestimo/',
@@ -97,14 +98,27 @@ function contratar(){
                         'juros': juros,
                         'parcela': parcela,
                         'vencimento': vencimento,
+                        'pk_': pk,
                         csrfmiddlewaretoken: csrf,
                  },
                 success: function (data){
-                    if (data.success){
+                    if (data.success && data.edit ){
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
-                            title: 'Empréstimo contratado!',
+                            title: 'Empréstimo Editado com Sucesso!',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        });
+                    } else if(data.success){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Empréstimo Contratado com Sucesso!',
                             allowOutsideClick: false,
                             allowEscapeKey: false,
                         }).then((result) => {

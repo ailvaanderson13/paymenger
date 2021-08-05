@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import logout_then_login
 from django.shortcuts import render, redirect
 from apps.agiota import models
 
@@ -48,3 +49,7 @@ def acesso(request):
         'erro': erro, 'msg': msg, 'notification': notification
     }
     return render(request, 'login/login.html', context)
+
+
+def logout_(request):
+    return logout_then_login(request, login_url='/login')

@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col-md-12 col-xs-12">
         <div class="white-box">
-            <form class="form-horizontal form-material" method="POST">
+            <form class="form-horizontal form-material" id="form-emp" method="POST">
                 <div class="form-group">
                     {% csrf_token %}
                     {% for i in form %}
@@ -22,14 +22,13 @@
                         {{ i }}
                     </div>
                     <br>
+                    {% if emprestimo %}
+                        <input type="hidden" class="cls-pk" value="{{pk_}}">
+                    {% endif %}
                     {% endfor %}
                 </div>
                 <div class="col">
-                    {% if emprestimo %}
-                        <button type="submit" class="btn btn-success text-white">EDITAR EMPRÉSTIMO <i class="fas fa-check-square"></i></button>
-                    {% else %}
-                        <a class="btn btn-success text-white" id="btn-calcular">CALCULAR <i class="fas fa-check-square"></i></a>
-                    {% endif %}
+                    <a class="btn btn-primary text-white" id="btn-calcular">CALCULAR <i class="fas fa-check-square"></i></a>
                 </div>
             </form>
         </div>

@@ -20,16 +20,33 @@ def confirm_emprestimo(request):
         juros = request.POST.get('juros')
         parcela = request.POST.get('parcela')
         vencimento = request.POST.get('vencimento')
+        pk = request.POST.get('pk_', None)
+        print(pk)
 
-        if cliente and valor and juros and parcela and vencimento:
-            new_emprestimo = models.Emprestimo.objects.create(valor=valor, juros=juros, num_parcela=parcela,
-                                                              parcela=parcela, vencimento=vencimento,
-                                                              firma=firma if firma else None)
-            new_emprestimo.cliente_id = int(cliente)
-            new_emprestimo.save()
-            response = {
-                'success': True
-            }
+        if pk:
+            edit_emprestimo = models.Emprestimo.objects.get(pk=pk)
+            if edit_emprestimo:
+                edit_emprestimo.valor = valor
+                edit_emprestimo.juros = juros
+                edit_emprestimo.num_parcela = parcela
+                edit_emprestimo.parcela = parcela
+                edit_emprestimo.vencimento = vencimento
+                edit_emprestimo.firma = firma if firma else None
+                edit_emprestimo.save()
+                response = {
+                    'success': True,
+                    'edit': True
+                }
+        else:
+            if cliente and valor and juros and parcela and vencimento:
+                new_emprestimo = models.Emprestimo.objects.create(valor=valor, juros=juros, num_parcela=parcela,
+                                                                  parcela=parcela, vencimento=vencimento,
+                                                                  firma=firma if firma else None)
+                new_emprestimo.cliente_id = int(cliente)
+                new_emprestimo.save()
+                response = {
+                    'success': True
+                }
 
     return JsonResponse(response, safe=True)
 
@@ -53,24 +70,9 @@ def open_update_emprestimo(request, pk=None):
             msg = "Nenhum Empréstimo encontrado!"
             notification = "danger"
 
-    if request.method == "POST":
-
-        if emprestimo:
-            form = forms.EmprestimoForm(request.POST, instance=emprestimo)
-
-        try:
-            if form.is_valid():
-                if emprestimo:
-                    form.save()
-                    msg = "Atualização Salva com Sucesso!"
-                    notification = "success"
-                    form = forms.EmprestimoForm()
-        except Exception as e:
-            msg = e
-            notification = "warning"
-
     context = {
-       'page_title': page_title, 'msg': msg, 'notification': notification, 'form': form, 'emprestimo': emprestimo
+       'page_title': page_title, 'msg': msg, 'notification': notification,
+        'form': form, 'emprestimo': emprestimo, 'pk_': pk
     }
 
     return render(request, 'cadastro_emprestimo.html', context)
