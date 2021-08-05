@@ -1,5 +1,9 @@
 asgiref
 Django
+prettyconf
+python-decouple
 pytz
 sqlparse
 whitenoise
+gunicorn
+psycopg2
