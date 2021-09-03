@@ -267,3 +267,36 @@ def emprestimos_quitados(request):
         'page_title': page_title, 'emprestimos': emprestimos, 'msg': msg, 'notification': notification
     }
     return render(request, 'emprestimos_quitados.html', context)
+
+
+@csrf_exempt
+def update_status_emprestimo(request):
+    response = {
+        'success': False
+    }
+
+    if request.method == 'POST':
+        pk = request.POST.get('pk')
+
+        if pk:
+            emprestimo = models.Emprestimo.objects.get(pk=pk)
+
+            if emprestimo:
+                emprestimo.em_aberto = True
+                emprestimo.data_em_aberto = datetime.now()
+                emprestimo.save()
+
+                response['success'] = True
+    return JsonResponse(response, safe=False)
+
+
+def list_emprestimo_em_aberto(request):
+    page_title = 'Empréstimos em Aberto'
+
+    emprestimos = models.Emprestimo.objects.filter(is_active=True, em_aberto=True)
+
+    context = {
+        'page_title': page_title, 'emprestimos': emprestimos
+    }
+
+    return render(request, 'emprestimos_em_aberto.html', context)

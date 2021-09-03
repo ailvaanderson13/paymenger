@@ -11,4 +11,6 @@ urlpatterns = [
     path('cobranca-diaria/', views.table_charge, name="cobranca-diaria"),
     path('update-payment/', views.update_status_payment, name="update-payment"),
     path('quitados/', views.emprestimos_quitados, name="emprestimos-quitados"),
+    path('em-aberto/', views.list_emprestimo_em_aberto, name="emprestimos-em-aberto"),
+    path('update-status-emprestimo/', views.update_status_emprestimo, name="update-status-emprestimo")
 ]

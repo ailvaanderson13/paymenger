@@ -17,6 +17,8 @@ class Emprestimo(models.Model):
     quitou = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     data = models.DateTimeField(auto_now_add=True)
+    em_aberto = models.BooleanField(default=False)
+    data_em_aberto = models.DateTimeField(blank=True, null=True)
     data_quitacao = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):

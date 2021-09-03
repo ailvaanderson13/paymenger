@@ -22,6 +22,7 @@
                     <tr>
                         <td>
                             <div class="btn-group">
+                                <button class="btn btn-primary btn-aberto" pk="{{ i.pk }}"><i class="fas fa-box"></i></button>
                                 <button class="btn btn-warning btn-pagou" pk="{{ i.pk }}"><i class="far fa-calendar-check"></i></button>
                                 <a class="btn btn-success" target="_blank" href="https://api.whatsapp.com/send?phone=+55{{i.cliente.celular_cliente}}"><i class="fab fa-whatsapp text-white"></i></a>
                             </div>

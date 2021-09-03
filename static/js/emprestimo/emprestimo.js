@@ -201,7 +201,6 @@ $('.btn-pagou').on('click', function (){
                         'pk': pk,
                     },
                     success: function(data){
-                        console.log(data)
                         if (data.success){
                             Swal.fire({
                                 position: 'center',
@@ -234,3 +233,37 @@ $('.btn-pagou').on('click', function (){
     })
 })
 
+$('.btn-aberto').on('click', function(){
+    let pk = $(this).val();
+    Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: 'Colocar esse emprestimo em atraso?',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+    }).then((result) => {
+        if (result.value) {
+             $.ajax({
+                'url': '/emprestimo/update-status-emprestimo/',
+                'type': 'POST',
+                'dataType': 'json',
+                'data' : {
+                    'pk': pk,
+                },
+                success: function(data){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Status Atualizado!',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }
+             })
+        }
+    });
+})
