@@ -10,6 +10,7 @@ class Emprestimo(models.Model):
     valor = models.CharField(max_length=6)
     juros = models.CharField(choices=choices.JUROS_CHOICES, max_length=3, default="1")
     parcela = models.CharField(choices=choices.PARCELAS_CHOICES, max_length=3, default="1")
+    val_parcel = models.CharField(max_length=10, blank=True, null=True)
     vencimento = models.CharField(choices=choices.DIA_PAGAMENTO_CHOICES, max_length=3, default="1")
     num_parcela = models.CharField(max_length=10, blank=True,null=True)
     pagou_parcela = models.BooleanField(default=False)

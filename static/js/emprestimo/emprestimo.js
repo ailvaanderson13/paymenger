@@ -58,7 +58,7 @@ var parcela = $('#id_parcela').val();
                                             <button id="btn-fechar" onclick="swal.closeModal()" class="btn btn-danger text-white">Fechar!</button>
                                         </div>
                                         <div class="col">
-                                            <button id="btn-contratar" onclick="contratar()" class="btn btn-success text-white">Contratar!</button>
+                                            <button id="btn-contratar" onclick="contratar(${data.parcela.toFixed(2).replace('.', ',')})" class="btn btn-success text-white">Contratar!</button>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@ var parcela = $('#id_parcela').val();
     }
 };
 
-function contratar(){
+function contratar(val_parcel){
     Swal.fire({
       title: 'Tem certeza?',
       icon: 'warning',
@@ -87,6 +87,7 @@ function contratar(){
             let juros = $('#id_juros').val();
             let parcela = $('#id_parcela').val();
             let vencimento = $('#id_vencimento').val();
+            let valor_parcel = val_parcel
             var pk = $('.cls-pk').val();
             var csrf = $('input[name=csrfmiddlewaretoken]').val();
             $.ajax({
@@ -100,6 +101,7 @@ function contratar(){
                         'parcela': parcela,
                         'vencimento': vencimento,
                         'pk_': pk,
+                        'val_parcel': valor_parcel,
                         csrfmiddlewaretoken: csrf,
                  },
                 success: function (data){

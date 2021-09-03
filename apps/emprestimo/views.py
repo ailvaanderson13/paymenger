@@ -20,8 +20,8 @@ def confirm_emprestimo(request):
         juros = request.POST.get('juros')
         parcela = request.POST.get('parcela')
         vencimento = request.POST.get('vencimento')
+        val_parcel = request.POST.get('val_parcel')
         pk = request.POST.get('pk_', None)
-        print(pk)
 
         if pk:
             edit_emprestimo = models.Emprestimo.objects.get(pk=pk)
@@ -31,6 +31,7 @@ def confirm_emprestimo(request):
                 edit_emprestimo.num_parcela = parcela
                 edit_emprestimo.parcela = parcela
                 edit_emprestimo.vencimento = vencimento
+                edit_emprestimo.val_parcel = val_parcel
                 edit_emprestimo.firma = firma if firma else None
                 edit_emprestimo.save()
                 response = {
@@ -41,7 +42,7 @@ def confirm_emprestimo(request):
             if cliente and valor and juros and parcela and vencimento:
                 new_emprestimo = models.Emprestimo.objects.create(valor=valor, juros=juros, num_parcela=parcela,
                                                                   parcela=parcela, vencimento=vencimento,
-                                                                  firma=firma if firma else None)
+                                                                  val_parcel=val_parcel, firma=firma if firma else None)
                 new_emprestimo.cliente_id = int(cliente)
                 new_emprestimo.save()
                 response = {

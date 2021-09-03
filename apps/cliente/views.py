@@ -42,6 +42,7 @@ def create_update_cliente(request, pk=None):
                     if firma:
                         new_cliente = form.save(commit=False)
                         new_cliente.firma_id = firma
+                        new_cliente.username = new_cliente.email
                         new_cliente.save()
                         msg = "Cliente cadastrado com Sucesso!"
                         notification = 'success'
