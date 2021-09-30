@@ -12,6 +12,7 @@
                         <th>Cliente</th>
                         <th>Valor Inicial</th>
                         <th>Taxa (%)</th>
+                        <th>Parcelas</th>
                         <th>Data</th>
                     </tr>
                     </thead>
@@ -21,6 +22,7 @@
                         <td>{{ i.cliente.first_name }}</td>
                         <td>R$: {{ i.valor }},00</td>
                         <td>{{ i.get_juros_display }}%</td>
+                        <td>{{i.num_parcela}}/{{i.parcela}}</td>
                         <td>{{ i.data_em_aberto }}</td>
                     </tr>
                     </tbody>

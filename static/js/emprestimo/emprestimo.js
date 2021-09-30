@@ -58,7 +58,7 @@ var parcela = $('#id_parcela').val();
                                             <button id="btn-fechar" onclick="swal.closeModal()" class="btn btn-danger text-white">Fechar!</button>
                                         </div>
                                         <div class="col">
-                                            <button id="btn-contratar" onclick="contratar(${data.parcela.toFixed(2).replace('.', ',')})" class="btn btn-success text-white">Contratar!</button>
+                                            <button id="btn-contratar" onclick=contratar(${data.parcela.toFixed(2).replace('.', ',')}) class="btn btn-success text-white">Contratar!</button>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@ function contratar(val_parcel){
             let juros = $('#id_juros').val();
             let parcela = $('#id_parcela').val();
             let vencimento = $('#id_vencimento').val();
-            let valor_parcel = val_parcel
+            let valor_parcel = val_parcel;
             var pk = $('.cls-pk').val();
             var csrf = $('input[name=csrfmiddlewaretoken]').val();
             $.ajax({
@@ -95,14 +95,14 @@ function contratar(val_parcel){
                 'type': 'POST',
                 'dataType': 'json',
                  'data' : {
-                        'cliente': client,
-                        'valor': valor,
-                        'juros': juros,
-                        'parcela': parcela,
-                        'vencimento': vencimento,
-                        'pk_': pk,
-                        'val_parcel': valor_parcel,
-                        csrfmiddlewaretoken: csrf,
+                    'cliente': client,
+                    'valor': valor,
+                    'juros': juros,
+                    'parcela': parcela,
+                    'vencimento': vencimento,
+                    'pk_': pk,
+                    'val_parcel': valor_parcel,
+                    csrfmiddlewaretoken: csrf,
                  },
                 success: function (data){
                     if (data.success && data.edit ){
@@ -243,7 +243,7 @@ $('.btn-aberto').on('click', function(){
         allowEscapeKey: false,
     }).then((result) => {
         if (result.value) {
-             $.ajax({
+            $.ajax({
                 'url': '/emprestimo/update-status-emprestimo/',
                 'type': 'POST',
                 'dataType': 'json',
@@ -263,7 +263,7 @@ $('.btn-aberto').on('click', function(){
                         }
                     });
                 }
-             })
+            })
         }
     });
 })

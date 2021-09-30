@@ -13,6 +13,7 @@
                         <th>Cliente</th>
                         <th>Valor Inicial</th>
                         <th>Taxa (%)</th>
+                        <th>Data</th>
                     </tr>
                     </thead>
                     {% for i in emprestimos %}
@@ -27,6 +28,7 @@
                         <td>{{ i.cliente.first_name }}</td>
                         <td>R$: {{ i.valor }},00</td>
                         <td>{{ i.get_juros_display }}%</td>
+                        <td>{{ i.data }}</td>
                     </tr>
                     </tbody>
                     {% endfor %}

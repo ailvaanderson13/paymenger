@@ -44,6 +44,7 @@ def confirm_emprestimo(request):
                                                                   parcela=parcela, vencimento=vencimento,
                                                                   val_parcel=val_parcel, firma=firma if firma else None)
                 new_emprestimo.cliente_id = int(cliente)
+                print(val_parcel)
                 new_emprestimo.save()
                 response = {
                     'success': True
@@ -291,7 +292,7 @@ def update_status_emprestimo(request):
 
 
 def list_emprestimo_em_aberto(request):
-    page_title = 'Empréstimos em Aberto'
+    page_title = 'Parcela em Atraso'
 
     emprestimos = models.Emprestimo.objects.filter(is_active=True, em_aberto=True)
 
